@@ -50,6 +50,70 @@ public class HomePageController {
         return "redirect:/login";
     }
 
+    public Model setupDashboardPage(Model model, HttpServletRequest request) throws Exception{
+        User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+
+        Integer userId = sessionUser.getId();
+
+        List<Post> postList = postRepository.findAllPostsByUserId(userId);
+        for (Post p : postList) {
+            p.setVoteCount(voteRepository.countVotesByPostId(p.getUserId()));
+            User user = userRepository.getById(p.getUserId());
+            p.setUserName(user.getUsername());
+        }
+
+        model.addAttribute("user", sessionUser);
+        model.addAttribute("postList", postList);
+        model.addAttribute("loggedIn", sessionUser.isLoggedIn());
+        model.addAttribute("post", new Post());
+
+        return model;
+    }
+
+    public Model setupSinglePostPage(int id, Model model, HttpServletRequest request) {
+        if (request.getSession(false) != null){
+            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+            model.addAttribute("sessionUser", sessionUser);
+            model.addAttribute("loggenIn", sessionUser.isLoggedIn());
+        }
+
+        Post post = postRepository.getById(id);
+        post.setVoteCount(voteRepository.countVotesByPostId(post.getUserId()));
+
+        User postUser = userRepository.getById(post.getUserId());
+        post.setUserName(postUser.getUsername());
+
+        List<Comment> commentList = commentRepository.findAllCommentsByPostId(post.getId());
+
+        model.addAttribute("post", post);
+        model.addAttribute("commentList", commentList);
+        model.addAttribute("comment", new Comment());
+
+        return model;
+    }
+
+    public Model setupEditPostPage(int id, Model model, HttpServletRequest request) {
+        if (request.getSession(false) != null) {
+            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+
+            Post returnPost = postRepository.getById(id);
+            User tempUser = userRepository.getById(returnPost.getUserId());
+            returnPost.setUserName(tempUser.getUsername());
+            returnPost.setVoteCount(voteRepository.countVotesByPostId(returnPost.getId()));
+
+            List<Comment> commentList = commentRepository.findAllCommentsByPostId(returnPost.getId());
+
+            model.addAttribute("post", returnPost);
+            model.addAttribute("logginIn", sessionUser.isLoggedIn());
+            model.addAttribute("commentList", commentList);
+            model.addAttribute("comment", new Comment());
+        }
+
+        return model;
+    }
+
+
+
     //Index
     @GetMapping("/")
     public String homepageSetup(Model model, HttpServletRequest request) {
@@ -112,7 +176,7 @@ public class HomePageController {
     //Single Post Set up
     @GetMapping("/post/{id}")
     public String singlePostPageSetup(@PathVariable int id, Model model, HttpServletRequest request) {
-        singlePostPageSetup(id, model, request);
+        setupSinglePostPage(id, model, request);
         return "single-post";
     }
 
@@ -139,67 +203,7 @@ public class HomePageController {
         }
     }
 
-    public Model setupDashboardPage(Model model, HttpServletRequest request) throws Exception{
-        User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
 
-        Integer userId = sessionUser.getId();
-
-        List<Post> postList = postRepository.findAllPostsByUserId(userId);
-        for (Post p : postList) {
-            p.setVoteCount(voteRepository.countVotesByPostId(p.getUserId()));
-            User user = userRepository.getById(p.getUserId());
-            p.setUserName(user.getUsername());
-        }
-
-        model.addAttribute("user", sessionUser);
-        model.addAttribute("postList", postList);
-        model.addAttribute("loggedIn", sessionUser.isLoggedIn());
-        model.addAttribute("post", new Post());
-
-        return model;
-    }
-
-    public Model setupSinglePostPage(int id, Model model, HttpServletRequest request) {
-        if (request.getSession(false) != null){
-            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
-            model.addAttribute("sessionUser", sessionUser);
-            model.addAttribute("loggenIn", sessionUser.isLoggedIn());
-        }
-
-        Post post = postRepository.getById(id);
-        post.setVoteCount(voteRepository.countVotesByPostId(post.getUserId()));
-
-        User postUser = userRepository.getById(post.getUserId());
-        post.setUserName(postUser.getUsername());
-
-        List<Comment> commentList = commentRepository.findAllCommentsByPostId(post.getId());
-
-        model.addAttribute("post", post);
-        model.addAttribute("commentList", commentList);
-        model.addAttribute("comment", new Comment());
-
-        return model;
-    }
-
-    public Model setupEditPostPage(int id, Model model, HttpServletRequest request) {
-        if (request.getSession(false) != null) {
-            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
-
-            Post returnPost = postRepository.getById(id);
-            User tempUser = userRepository.getById(returnPost.getUserId());
-            returnPost.setUserName(tempUser.getUsername());
-            returnPost.setVoteCount(voteRepository.countVotesByPostId(returnPost.getId()));
-
-            List<Comment> commentList = commentRepository.findAllCommentsByPostId(returnPost.getId());
-
-            model.addAttribute("post", returnPost);
-            model.addAttribute("logginIn", sessionUser.isLoggedIn());
-            model.addAttribute("commentList", commentList);
-            model.addAttribute("comment", new Comment());
-        }
-
-        return model;
-    }
 
 
 }
