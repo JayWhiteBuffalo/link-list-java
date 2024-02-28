@@ -14,6 +14,8 @@
         <h3>[[${notice}]]</h3>
     </div>
 
+    <div class="dashboard-cont">
+
     <section>
         <h2>Create New Post</h2>
 
@@ -29,22 +31,26 @@
             </div>
             <div>
                 <label for="post-text">Description</label>
-                <input type="text" th:field="*{postText}" id="post-text" name="post-text"/>
+                <textarea class="dashboard-textarea" type="text" th:field="*{postText}" id="post-text" name="post-text"></textarea>
             </div>
-            <button type="submit" class="btn">Create</button>
+            <button type="submit" class="btn-no-style">Create</button>
         </form>
     </section>
 
     <section th:if="${postList.size() > 0}">
         <h2>Your Posts</h2>
-        <ol>
+        <ol class="dashboard-postList-cont">
             <li th:each="post : ${postList}">
                 <div th:insert="fragments/post-fragment :: post-fragment"></div>
-                <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="edit-link">Edit post</a>
-                <button type="button" name="delete-post-btn" class="delete-post-btn" th:value="${post.id}">Delete</button>
+                    <div class="dashboard-post-btn-cont">
+                        <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="btn-no-style">Edit post</a>
+                        <button type="button" name="delete-post-btn" class="delete-post-btn btn-no-style " th:value="${post.id}">Delete</button>
+                    </div>
             </li>
         </ol>
     </section>
+
+    </div>
 
     <script src="/js/delete-post.js"></script>
 </div>

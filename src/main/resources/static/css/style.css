@@ -84,26 +84,63 @@ main {
   padding: 2% 4%;
 }
 
+.homepage-post-cont{
+    display: flex;
+    flex-direction: column;
+    width 90vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepage-post-cont li{
+    width:60vw;
+}
+
+.dashboard-cont{
+    display: flex;
+    gap: 2rem;
+}
+
+.edit-post-page-cont{
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-post-btn-cont{
+    display: flex;
+    gap: 1rem;
+}
+
+.dashboard-postList-cont{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
 .btn-no-style {
   background: none;
   border: none;
-  padding: 0;
+  padding: .5rem;
   cursor: pointer;
   text-decoration: none;
   color: #225ca3;
   font-size: 100%;
   font-weight: bold;
   transition: color .1s;
-  margin-left: 16px;
+  border: 1px solid #225ca3;
+  border-radius: 0%;
 }
 
 .btn-no-style:hover {
-  background: none;
-  color: #3486eb;
+  background: #3486eb;
+  color: white;
 }
 
 .delete-post-btn {
-  background-color: #d41414;
+  border: 1px solid #d41414;
+  border-radius: 0%;
 }
 
 .delete-post-btn:hover {
@@ -127,6 +164,13 @@ main {
   font-style: italic;
   font-size: 90%;
   color: #7d7d7d;
+}
+
+.dashboard-textarea{
+    width: 30vw;
+    height: 25vh;
+    max-height: 30vh;
+    max-width: 30vw;
 }
 
 .edit-link {

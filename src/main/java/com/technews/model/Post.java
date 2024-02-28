@@ -27,7 +27,7 @@ public class Post implements Serializable{
     private Integer userId;
     @NotNull
     @Temporal(TemporalType.DATE)
-    @Column(name = "posted_at")
+    @Column(name = "posted_at" )
     private Date postedAt = new Date();
     @NotNull
     @Temporal(TemporalType.DATE)

@@ -10,7 +10,7 @@
 
 <article class="post" th:fragment="post-fragment" th:id="'post-' + ${post.id}">
 
-        <div class="vote-cont">
+        <div th:unless="${#strings.contains(#httpServletRequest.getRequestURI(), '/dashboard')}" class="vote-cont">
             <button type="button" name="upvote" value="upvote" class="upvote-btn"></button>
             <span th:text="${post.voteCount}"></span>
             <button type="button" name="downvote" value="downvote" class="downvote-btn"></button>
@@ -20,9 +20,14 @@
         <div class="title">
             <a th:href="@{/post/{id}(id=${post.id})}" target="_blank">[[${post.title}]]</a>
 
-            <div th:if="${#strings.contains(post.postUrl, 'http://')} or ${#strings.contains(post.postUrl, 'https://')} or ${#strings.contains(post.postUrl, 'www.')}">
+<!--            <div th:if="${#strings.contains(post.postUrl, 'http://')} or ${#strings.contains(post.postUrl, 'https://')} or ${#strings.contains(post.postUrl, 'www.')}">-->
+<!--                <a class="post-url" th:href="${post.postUrl}" target="_blank">-->
+<!--                    <span th:text="${#strings.substringBefore(#strings.substringAfter(post.postUrl, '://'), '?')}"></span>-->
+<!--                </a>-->
+<!--            </div>-->
+            <div th:if="${#strings.contains(post.postUrl, 'http://') or #strings.contains(post.postUrl, 'https://') or #strings.contains(post.postUrl, 'www.')}">
                 <a class="post-url" th:href="${post.postUrl}" target="_blank">
-                    <span th:text="${#strings.substringBefore(#strings.substringAfter(post.postUrl, '://'), '?')}"></span>
+                    <span th:text="${#strings.substringBefore(#strings.substringAfter(post.postUrl, '://'), '/')}"></span>
                 </a>
             </div>
 
