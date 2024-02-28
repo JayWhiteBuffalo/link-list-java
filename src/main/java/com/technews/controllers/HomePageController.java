@@ -74,11 +74,11 @@ public class HomePageController {
         if (request.getSession(false) != null){
             User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
             model.addAttribute("sessionUser", sessionUser);
-            model.addAttribute("loggenIn", sessionUser.isLoggedIn());
+            model.addAttribute("loggedIn", sessionUser.isLoggedIn());
         }
 
         Post post = postRepository.getById(id);
-        post.setVoteCount(voteRepository.countVotesByPostId(post.getUserId()));
+        post.setVoteCount(voteRepository.countVotesByPostId(post.getId()));
 
         User postUser = userRepository.getById(post.getUserId());
         post.setUserName(postUser.getUsername());
@@ -104,7 +104,7 @@ public class HomePageController {
             List<Comment> commentList = commentRepository.findAllCommentsByPostId(returnPost.getId());
 
             model.addAttribute("post", returnPost);
-            model.addAttribute("logginIn", sessionUser.isLoggedIn());
+            model.addAttribute("loggedIn", sessionUser.isLoggedIn());
             model.addAttribute("commentList", commentList);
             model.addAttribute("comment", new Comment());
         }
@@ -176,6 +176,16 @@ public class HomePageController {
     //Single Post Set up
     @GetMapping("/post/{id}")
     public String singlePostPageSetup(@PathVariable int id, Model model, HttpServletRequest request) {
+        User sessionUser = new User();
+
+        if (request.getSession(false) != null){
+            sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+            model.addAttribute("loggedIn", sessionUser.isLoggedIn());
+        } else {
+            model.addAttribute("loggedIn", false);
+        }
+
+
         setupSinglePostPage(id, model, request);
         return "single-post";
     }

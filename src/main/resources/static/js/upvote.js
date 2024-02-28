@@ -1,6 +1,11 @@
+
+document.querySelector('.upvote-btn').addEventListener('click', upvoteClickHandler);
+console.log("Fucktion fired");
+
 async function upvoteClickHandler(event) {
   event.preventDefault();
-
+  console.log("Upvote fired");
+  event.currentTarget.classList.toggle('on');
   const id = window.location.toString().split('/')[
     window.location.toString().split('/').length - 1
   ];
@@ -23,4 +28,10 @@ async function upvoteClickHandler(event) {
   }
 }
 
-document.querySelector('.upvote-btn').addEventListener('click', upvoteClickHandler);
+
+
+//for (const btn of document.querySelectorAll('.vote')) {
+//  btn.addEventListener('click', event => {
+//    event.currentTarget.classList.toggle('on');
+//  });
+//}

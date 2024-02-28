@@ -120,6 +120,8 @@ main {
 .post {
   margin-bottom: 2%;
   line-height: 150%;
+  display: flex;
+  gap: 1rem;
 }
 
 .post .title span {
@@ -133,12 +135,49 @@ main {
   margin: -1.5% 0 2% 0;
 }
 
+.vote-cont{
+    display:flex;
+    flex-direction: column;
+}
+
+.vote-cont span{
+    text-align: center;
+}
+
 .upvote-btn {
-  background-color: #197d0f;
-  transition: background-color .1s;
+  display: inline-block;
+  overflow: hidden;
+  width: 40px;
+  height: 25px;
+  cursor: pointer;
+  background: url('https://i.stack.imgur.com/iqN2k.png');
+  background-position: 0 -25px;
+}
+
+.downvote-btn {
+   rotate : 180deg;
+   display: inline-block;
+   overflow: hidden;
+   width: 40px;
+   height: 25px;
+   cursor: pointer;
+   background: url('https://i.stack.imgur.com/iqN2k.png');
+   background-position: 0 -25px;
+}
+
+.downvote-btn.on{
+  background-position: 0 2px;
+}
+
+.upvote-button.on {
+  background-position: 0 2px;
 }
 
 .upvote-btn:hover {
+  background-color: #1f9c13;
+}
+
+.downvote-btn:hover {
   background-color: #1f9c13;
 }
 
