@@ -123,6 +123,7 @@ public class TechNewController {
         } else {
             Post tempPost = postRepository.getById(id);
             tempPost.setTitle(post.getTitle());
+            tempPost.setPostText((post.getPostText()));
             postRepository.save(tempPost);
 
             return "redirect:/dashboard";

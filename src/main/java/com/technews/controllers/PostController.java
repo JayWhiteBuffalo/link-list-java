@@ -57,6 +57,7 @@ public class PostController {
     public Post updatePost(@PathVariable int id, @RequestBody Post post) {
         Post tempPost = postRepository.getById(id);
         tempPost.setTitle(post.getTitle());
+        tempPost.setPostText((post.getPostText()));
         return tempPost;
     }
 
@@ -119,6 +120,12 @@ public class PostController {
     @DeleteMapping("/api/posts/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletePost(@PathVariable int id) {
+
+        List<Vote> votes = voteRepository.findAllVotesForSinglePost(id);
+        for (Vote vote : votes) {
+            voteRepository.delete(vote);
+        }
+
         postRepository.deleteById(id);
     }
 

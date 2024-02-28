@@ -10,13 +10,6 @@ body, html {
   color: #333;
 }
 
-a {
-  text-decoration: none;
-  color: #225ca3;
-  font-weight: bold;
-  transition: color .1s;
-}
-
 a:hover {
   color: #3486eb;
 }
@@ -125,6 +118,12 @@ main {
 }
 
 .post .title span {
+  font-style: italic;
+  font-size: 90%;
+  color: #7d7d7d;
+}
+
+.post-url{
   font-style: italic;
   font-size: 90%;
   color: #7d7d7d;

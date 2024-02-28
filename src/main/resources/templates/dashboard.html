@@ -18,6 +18,7 @@
         <h2>Create New Post</h2>
 
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post" class="new-post-form">
+
             <div>
                 <label for="post-title">Title</label>
                 <input type="text" th:field="*{title}" id="post-title" name="post-title"/>
@@ -25,6 +26,10 @@
             <div>
                 <label for="post-url">Link</label>
                 <input type="text" th:field="*{postUrl}" id="post-url" name="post-url"/>
+            </div>
+            <div>
+                <label for="post-text">Description</label>
+                <input type="text" th:field="*{postText}" id="post-text" name="post-text"/>
             </div>
             <button type="submit" class="btn">Create</button>
         </form>
@@ -36,11 +41,14 @@
             <li th:each="post : ${postList}">
                 <div th:insert="fragments/post-fragment :: post-fragment"></div>
                 <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="edit-link">Edit post</a>
+                <button type="button" name="delete-post-btn" class="delete-post-btn" th:value="${post.id}">Delete</button>
             </li>
         </ol>
     </section>
 
+    <script src="/js/delete-post.js"></script>
 </div>
+
 
 
 </body>
