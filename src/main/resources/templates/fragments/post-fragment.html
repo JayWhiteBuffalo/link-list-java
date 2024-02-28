@@ -8,17 +8,17 @@
 </head>
 <body>
 
-<article class="post" th:fragment="post-fragment">
+<article class="post" th:fragment="post-fragment" th:id="'post-' + ${post.id}">
 
-    <div class="vote-cont">
-        <button type="button" name="upvote" value="upvote" class="upvote-btn"></button>
-        <span th:text="${post.voteCount}"></span>
-        <button type="button" name="downvote" value="downvote" class="downvote-btn"></button>
-    </div>
+        <div class="vote-cont">
+            <button type="button" name="upvote" value="upvote" class="upvote-btn"></button>
+            <span th:text="${post.voteCount}"></span>
+            <button type="button" name="downvote" value="downvote" class="downvote-btn"></button>
+        </div>
 
     <div class="post-content">
         <div class="title">
-            <a th:href="@{ ${post.postUrl} }" target="_blank">[[${post.title}]]</a>
+            <a th:href="@{/post/{id}(id=${post.id})}" target="_blank">[[${post.title}]]</a>
 
             <div th:if="${#strings.contains(post.postUrl, 'http://')}">
                 <div th:with="arg=${#strings.replace(post.postUrl,'http://','')}">

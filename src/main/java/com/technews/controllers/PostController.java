@@ -75,12 +75,44 @@ public class PostController {
             returnPost = postRepository.getById(vote.getPostId());
             returnPost.setVoteCount(voteRepository.countVotesByPostId((vote.getPostId())));
 
-//            returnValue  = "";
+            returnValue  = "";
         } else {
             // If there's no active session, set the return value to "login"
             returnValue ="login";
         }
             return  returnValue;
+    }
+
+    //Downvote
+    @PutMapping("/api/posts/downvote")
+    public String removeVote(@RequestBody Vote vote, HttpServletRequest request) {
+        String returnValue = "";
+
+        // Check if there's an active session
+        if (request.getSession(false) != null) {
+            // Fetch the post and user information
+            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+
+            // Set user id for the vote
+            vote.setUserId(sessionUser.getId());
+
+            // Check if the user has already voted on this post
+            Vote existingVote = voteRepository.findByUserIdAndPostId(sessionUser.getId(), vote.getPostId());
+            if (existingVote != null) {
+                // If the user has already voted, remove the existing vote (downvote)
+                voteRepository.delete(existingVote);
+            } else {
+                returnValue = "No vote exists to remove.";
+            }
+
+            // Set the return value to an empty string
+            returnValue = "";
+        } else {
+            // If there's no active session, set the return value to "login"
+            returnValue = "login";
+        }
+
+        return returnValue;
     }
 
     //Delete Post

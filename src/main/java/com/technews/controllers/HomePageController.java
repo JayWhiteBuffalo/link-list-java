@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -85,6 +86,17 @@ public class HomePageController {
 
         List<Comment> commentList = commentRepository.findAllCommentsByPostId(post.getId());
 
+        List<String> userNames = new ArrayList<>();
+        for (Comment comment : commentList) {
+            User user = userRepository.getById(comment.getUserId());
+            if (user != null) {
+                userNames.add(user.getUsername());
+            } else {
+                userNames.add("Anon");
+            }
+        }
+
+        model.addAttribute("commentUserNames", userNames);
         model.addAttribute("post", post);
         model.addAttribute("commentList", commentList);
         model.addAttribute("comment", new Comment());
@@ -134,7 +146,7 @@ public class HomePageController {
         }
 
         model.addAttribute("postList", postList);
-        model.addAttribute("loggedIn", sessionUser.isLoggedIn());
+//        model.addAttribute("loggedIn", sessionUser.isLoggedIn());
 
         //Refers to Up-votes
         model.addAttribute("point", "point");
