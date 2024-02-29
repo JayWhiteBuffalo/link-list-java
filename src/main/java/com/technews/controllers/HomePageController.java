@@ -125,6 +125,27 @@ public class HomePageController {
         return model;
     }
 
+    public Model setupSingleUserPage(int id, Model model, HttpServletRequest request) throws Exception {
+        if (request.getSession(false) != null){
+            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+            model.addAttribute("sessionUser", sessionUser);
+            model.addAttribute("loggedIn", sessionUser.isLoggedIn());
+        }
+
+        User user = userRepository.getById(id);
+        List<Post> postList = postRepository.findAllPostsByUserId(id);
+//        for (Post p : postList) {
+//            p.setVoteCount(voteRepository.countVotesByPostId(p.getUserId()));
+//            User user = userRepository.getById(p.getUserId());
+//            p.setUserName(user.getUsername());
+//        }
+
+        model.addAttribute("user", user);
+        model.addAttribute("postList", postList);
+
+        return model;
+    }
+
 
 
     //Index
@@ -227,6 +248,15 @@ public class HomePageController {
             return "login";
         }
     }
+
+    @GetMapping("/user/{id}")
+    public String singleUserPageSetup(@PathVariable int id, Model model, HttpServletRequest request) throws Exception {
+        setupSingleUserPage(id, model, request);
+
+        return"single-user";
+    }
+
+
 
 
 

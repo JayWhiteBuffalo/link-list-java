@@ -6,17 +6,9 @@
     <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE">Link List</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+    <body>
 
-<section th:each="comment, index : ${commentList}" class="comment" th:fragment="comment-fragment">
-    <div class="meta">
-        [[${commentUserNames[__${index.index}__]}]] on
-        <span th:text="${#dates.format(post.postedAt, 'MM-dd-YY')}"></span>
-    </div>
-    <div class="text">
-        [[${comment.commentText}]]
-    </div>
-</section>
 
-</body>
+
+    </body>
 </html>
