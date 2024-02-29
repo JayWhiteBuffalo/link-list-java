@@ -4,10 +4,8 @@ package com.technews.controllers;
 import com.technews.model.Comment;
 import com.technews.model.Post;
 import com.technews.model.User;
-import com.technews.repository.CommentRepository;
-import com.technews.repository.PostRepository;
-import com.technews.repository.UserRepository;
-import com.technews.repository.VoteRepository;
+import com.technews.model.UserAttributes;
+import com.technews.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -30,6 +28,8 @@ public class HomePageController {
     CommentRepository commentRepository;
     @Autowired
     VoteRepository voteRepository;
+    @Autowired
+    UserAttributeRepository userAttributeRepository;
 
     //Login
     @GetMapping("/login")
@@ -56,6 +56,7 @@ public class HomePageController {
         User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
 
         Integer userId = sessionUser.getId();
+        UserAttributes userAttributes = userAttributeRepository.findByUserId(sessionUser.getId());
 
         List<Post> postList = postRepository.findAllPostsByUserId(userId);
         for (Post p : postList) {
@@ -64,6 +65,7 @@ public class HomePageController {
             p.setUserName(user.getUsername());
         }
 
+        model.addAttribute("attributes", userAttributes);
         model.addAttribute("user", sessionUser);
         model.addAttribute("postList", postList);
         model.addAttribute("loggedIn", sessionUser.isLoggedIn());

@@ -20,7 +20,6 @@
         <h2>Create New Post</h2>
 
         <form action="#" th:action="@{/posts}" th:object="${post}" method="post" class="new-post-form">
-
             <div>
                 <label for="post-title">Title</label>
                 <input type="text" th:field="*{title}" id="post-title" name="post-title"/>
@@ -37,17 +36,22 @@
         </form>
     </section>
 
-    <section th:if="${postList.size() > 0}">
-        <h2>Your Posts</h2>
-        <ol class="dashboard-postList-cont">
-            <li th:each="post : ${postList}">
-                <div th:insert="fragments/post-fragment :: post-fragment"></div>
-                    <div class="dashboard-post-btn-cont">
-                        <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="btn-no-style">Edit post</a>
-                        <button type="button" name="delete-post-btn" class="delete-post-btn btn-no-style " th:value="${post.id}">Delete</button>
-                    </div>
-            </li>
-        </ol>
+    <section>
+        <div>
+            <span th:text="${attributes.id}"></span>
+        </div>
+        <div th:if="${postList.size() > 0}">
+            <h2>Your Posts</h2>
+            <ol class="dashboard-postList-cont">
+                <li th:each="post : ${postList}">
+                    <div th:insert="fragments/post-fragment :: post-fragment"></div>
+                        <div class="dashboard-post-btn-cont">
+                            <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="btn-no-style">Edit post</a>
+                            <button type="button" name="delete-post-btn" class="delete-post-btn btn-no-style " th:value="${post.id}">Delete</button>
+                        </div>
+                </li>
+            </ol>
+        </div>
     </section>
 
     </div>

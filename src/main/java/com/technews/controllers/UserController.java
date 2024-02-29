@@ -2,6 +2,8 @@ package com.technews.controllers;
 
 import com.technews.model.Post;
 import com.technews.model.User;
+import com.technews.model.UserAttributes;
+import com.technews.repository.UserAttributeRepository;
 import com.technews.repository.UserRepository;
 import com.technews.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.DateTimeAtCreation;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -18,6 +23,9 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     VoteRepository voteRepository;
+
+    @Autowired
+    UserAttributeRepository userAttributeRepository;
 
     //Get All User
     @GetMapping("/api/users")
@@ -47,6 +55,16 @@ public class UserController {
     @PostMapping("/api/users")
     public User addUser(@RequestBody User user) {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+
+        UserAttributes userAttributes = new UserAttributes();
+        userAttributes.setCreated_date(new Date());
+        userAttributes.setCreated_time(new Date());
+        userAttributes.updateLastLogin();
+
+        // Set userAttributes for the user - Set user for the userAttributes - Share one-to-one relationship
+        user.setUserAttributes(userAttributes);
+        userAttributes.setUser(user);
+
         userRepository.save(user);
         return user;
     }

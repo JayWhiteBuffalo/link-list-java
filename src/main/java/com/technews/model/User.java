@@ -1,5 +1,6 @@
 package com.technews.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,6 +20,10 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
     private String password;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_attributes_id", referencedColumnName = "id")
+    @JsonIgnore // prevents recursive serialization
+    private UserAttributes userAttributes;
     @Transient
     boolean loggedIn;
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -104,6 +109,14 @@ public class User implements Serializable {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public UserAttributes getUserAttributes() {
+        return userAttributes;
+    }
+
+    public void setUserAttributes(UserAttributes userAttributes) {
+        this.userAttributes = userAttributes;
     }
 
     @Override

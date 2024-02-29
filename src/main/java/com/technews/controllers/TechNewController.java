@@ -1,13 +1,7 @@
 package com.technews.controllers;
 
-import com.technews.model.Comment;
-import com.technews.model.Post;
-import com.technews.model.User;
-import com.technews.model.Vote;
-import com.technews.repository.CommentRepository;
-import com.technews.repository.PostRepository;
-import com.technews.repository.UserRepository;
-import com.technews.repository.VoteRepository;
+import com.technews.model.*;
+import com.technews.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -15,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @Controller
 public class TechNewController {
@@ -29,6 +25,8 @@ public class TechNewController {
     CommentRepository commentRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserAttributeRepository userAttributeRepository;
 
     @PostMapping("users/login")
     public String login(@ModelAttribute User user, Model model, HttpServletRequest request) throws Exception{
@@ -57,7 +55,12 @@ public class TechNewController {
             return "login";
         }
 
+
+        UserAttributes userAttributes = userAttributeRepository.findByUserId(sessionUser.getId());
+        System.out.println(sessionUser);
+        System.out.println(userAttributes);
         sessionUser.setLoggedIn(true);
+//        userAttributes.updateLastLogin();
         request.getSession().setAttribute("SESSION_USER", sessionUser);
 
         return "redirect:/dashboard";
@@ -74,6 +77,12 @@ public class TechNewController {
 
         try {
             user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+            UserAttributes userAttributes = new UserAttributes();
+            userAttributes.setCreated_date(new Date());
+            userAttributes.setCreated_time(new Date());
+            userAttributes.updateLastLogin();
+            user.setUserAttributes(userAttributes);
+            userAttributes.setUser(user);
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             model.addAttribute("notice", "Email address is not available. Please choose a diffrent email address");
@@ -89,6 +98,7 @@ public class TechNewController {
                 model.addAttribute("notice", "user is not recognized.");
                 return "login";
             }
+
 
             sessionUser.setLoggedIn(true);
             request.getSession().setAttribute("SESSION_USER", sessionUser);

@@ -7,7 +7,28 @@
 </head>
 <body>
 
-    <div layout:fragment="content">
+    <div class="flex-col" layout:fragment="content">
+        <div class="page-layout-padding">
+
+<!--        Filter Component-->
+        <div class="sort-cont">
+            <ul>
+                <li>
+                    <a th:href="@{/posts/new}">Newest</a>
+                </li>
+                <li>
+                    <a th:href="@{/posts/old}">Oldest</a>
+                </li>
+                <li>
+                    <a th:href="@{/posts/top}">Top</a>
+                </li>
+                <li>
+                    <a th:href="@{/posts/comments/top}">Conversation</a>
+                </li>
+            </ul>
+        </div>
+
+<!--        Post List Section-->
         <ol class="homepage-post-cont">
             <li th:each="post : ${postList}" class="post-list">
                 <div th:insert="fragments/post-fragment :: post-fragment"></div>
@@ -18,7 +39,7 @@
         </div>
     </div>
 
-
+    </div>
 
 </body>
 
