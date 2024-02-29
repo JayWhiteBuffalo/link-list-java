@@ -22,4 +22,11 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
             "ORDER BY vote_count DESC", nativeQuery = true)
     List<Post> findAllOrderByVoteCountDesc();
 
+    @Query(value = "SELECT p.*, COUNT(c.id) AS comment_count " +
+            "FROM post p " +
+            "LEFT JOIN comment c ON p.id = c.post_id " +
+            "GROUP BY p.id " +
+            "ORDER BY comment_count DESC", nativeQuery = true)
+    List<Post> findAllOrderByCommentCountDesc();
+
 }
