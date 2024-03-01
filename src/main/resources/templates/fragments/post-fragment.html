@@ -8,6 +8,7 @@
 </head>
 <body>
 
+
 <article class="post" th:fragment="post-fragment" th:id="'post-' + ${post.id}">
 
         <div th:unless="${#strings.contains(#httpServletRequest.getRequestURI(), '/dashboard')}" class="vote-cont">
@@ -20,11 +21,6 @@
         <div class="title">
             <a th:href="@{/post/{id}(id=${post.id})}" target="_blank">[[${post.title}]]</a>
 
-<!--            <div th:if="${#strings.contains(post.postUrl, 'http://')} or ${#strings.contains(post.postUrl, 'https://')} or ${#strings.contains(post.postUrl, 'www.')}">-->
-<!--                <a class="post-url" th:href="${post.postUrl}" target="_blank">-->
-<!--                    <span th:text="${#strings.substringBefore(#strings.substringAfter(post.postUrl, '://'), '?')}"></span>-->
-<!--                </a>-->
-<!--            </div>-->
             <div th:if="${#strings.contains(post.postUrl, 'http://') or #strings.contains(post.postUrl, 'https://') or #strings.contains(post.postUrl, 'www.')}">
                 <a class="post-url" th:href="${post.postUrl}" target="_blank">
                     <span th:text="${#strings.substringBefore(#strings.substringAfter(post.postUrl, '://'), '/')}"></span>
@@ -37,6 +33,11 @@
 
             <div class="meta">
                <span>Posted by</span>
+
+                <div th:block th:with="user=${userRepository.getById(post.userId)}">class="avatar-cont">
+                    <img class="avatar-img" th:src="${user.userAttributes.profilePicture}">
+                </div>
+
                 <a th:href="@{/user/{id}(id=${post.userId})}" th:text="${post.userName}"></a>
                 <span>on</span>
                 <span th:text="${#dates.format(post.postedAt, 'MM-dd-YY')}"></span>

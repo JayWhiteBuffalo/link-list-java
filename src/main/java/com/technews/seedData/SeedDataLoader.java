@@ -205,8 +205,6 @@ public class SeedDataLoader {
             e.printStackTrace();
         }
     }
-
-
     @PostConstruct
     @Transactional
     public void loadSeedData() {

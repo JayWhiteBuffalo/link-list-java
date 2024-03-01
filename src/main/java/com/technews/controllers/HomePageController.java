@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -222,7 +223,7 @@ public class HomePageController {
 
     //Index
     @GetMapping("/")
-    public String homepageSetup(Model model, HttpServletRequest request) {
+    public String homepageSetup(Model model, HttpServletRequest request) throws Exception {
         User sessionUser = new User();
 
         if (request.getSession(false) != null){
@@ -239,9 +240,8 @@ public class HomePageController {
             p.setUserName(user.getUsername());
         }
 
-        model.addAttribute("postList", postList);
-//        model.addAttribute("loggedIn", sessionUser.isLoggedIn());
 
+        model.addAttribute("postList", postList);
         //Refers to Up-votes
         model.addAttribute("point", "point");
         model.addAttribute("points", "points");
