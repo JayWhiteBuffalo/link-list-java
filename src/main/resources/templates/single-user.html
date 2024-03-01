@@ -10,26 +10,19 @@
 
 <body>
 
-<div layout:fragment="content">
-    <h1>Hello</h1>
-
-<!--    <div th:insert="fragments/post-fragment :: post-fragment"></div>-->
+<div class="dashboard-cont" layout:fragment="content">
+    <section>
+        <h1>Hello</h1>
+        <div th:insert="fragments/user-badge-fragment"></div>
+    </section>
 
     <section th:if="${postList.size() > 0}">
-        <h2 th:text="${user.username}"></h2>
         <ol class="dashboard-postList-cont">
             <li th:each="post : ${postList}">
                 <div th:insert="fragments/post-fragment :: post-fragment"></div>
             </li>
         </ol>
     </section>
-
-<!--    <div class="comments">-->
-<!--        <div th:insert="fragments/comment-fragment :: comment-fragment"></div>-->
-<!--    </div>-->
-<!--    <div th:if="${loggedIn}">-->
-<!--        <script src="/js/upvote.js"></script>-->
-<!--    </div>-->
 
 </div>
 

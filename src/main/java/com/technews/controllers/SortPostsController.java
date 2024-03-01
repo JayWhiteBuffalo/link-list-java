@@ -38,10 +38,10 @@ public class SortPostsController {
         List<Post> postList = postRepository.findAllByOrderByPostedAtDesc();
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.findUserById(p.getUserId());
             p.setUserName(user.getUsername());
         }
-
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("postList", postList);
         model.addAttribute("point", "point");
         model.addAttribute("points", "points");
@@ -64,10 +64,10 @@ public class SortPostsController {
         List<Post> postList = postRepository.findAllByOrderByPostedAtAsc();
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.findUserById(p.getUserId());
             p.setUserName(user.getUsername());
         }
-
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("postList", postList);
         model.addAttribute("point", "point");
         model.addAttribute("points", "points");
@@ -90,11 +90,11 @@ public class SortPostsController {
         List<Post> postList = postRepository.findAllOrderByVoteCountDesc();
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.findUserById(p.getUserId());
             p.setUserName(user.getUsername());
         }
 
-
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("postList", postList);
         model.addAttribute("point", "point");
         model.addAttribute("points", "points");
@@ -116,11 +116,11 @@ public class SortPostsController {
         List<Post> postList = postRepository.findAllOrderByCommentCountDesc();
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.findUserById(p.getUserId());
             p.setUserName(user.getUsername());
         }
 
-
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("postList", postList);
         model.addAttribute("point", "point");
         model.addAttribute("points", "points");

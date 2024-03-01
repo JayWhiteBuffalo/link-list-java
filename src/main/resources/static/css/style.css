@@ -105,6 +105,7 @@ main {
     width 90vw;
     justify-content: center;
     align-items: center;
+    gap: 1rem;
 }
 
 .homepage-post-cont li{
@@ -324,6 +325,12 @@ footer {
   font-size: 110%;
 }
 
+.post-details{
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
 .avatar-cont{
     width: 10rem;
     height: 10rem;
@@ -338,5 +345,8 @@ footer {
 }
 
 .avatar-thumbnail{
-
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    overflow: hidden;
 }

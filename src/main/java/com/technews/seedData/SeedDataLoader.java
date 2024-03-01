@@ -29,6 +29,7 @@ public class SeedDataLoader {
     private CommentRepository commentRepository;
     @Autowired
     private VoteRepository voteRepository;
+    @Autowired
     private UserAttributeRepository userAttributeRepository;
 
     private static final String USER_DATA_FILE = "src/main/java/com/technews/seedData/seedData.csv";
@@ -63,7 +64,9 @@ public class SeedDataLoader {
 
                 // Create a User object and save it to the database or perform other operations as needed
                 User user = new User(Integer.parseInt(id), username, email, password);
-                Integer userId = user.getId();
+
+                System.out.println("====================================================================================================================================="+user);
+
                 // Call loadAttributeData with the user and userId
                 loadAttributeData(user, currentIndex);
             }
@@ -85,21 +88,30 @@ public class SeedDataLoader {
         }
         try (Reader in = new FileReader(ATTRIBUTE_DATA_FILE);
              CSVParser parser = CSVFormat.RFC4180.RFC4180.withFirstRecordAsHeader().parse(in)) {
-            int index = currentIndex.get();
+            long index = currentIndex.get();
+
+
             // Get the iterator and skip to the current record
             Iterator<CSVRecord> iterator = parser.iterator();
-
-            for (int i = 0; i < index && iterator.hasNext(); i++) {
+            // Iterate until the desired index
+            for (int i = 1; i <index; i++){
                 iterator.next();
             }
-            // Check if there's a next record
+
+            // Iterate until the end of the file or desired index
             if (iterator.hasNext()) {
-                // Get the next record
+
                 CSVRecord record = iterator.next();
+
+                // Check if the record number matches the desired index
+                if (record.getRecordNumber() == currentIndex.get()) {
+
+
+
                 // Increment the currentIndex to indicate that the next record has been processed
                 currentIndex.incrementAndGet();
                 UserAttributes userAttributes = new UserAttributes();
-                userAttributes.setId(Integer.parseInt(record.get("id")));
+                userAttributes.setId(24 + (currentIndex.get()));
                 userAttributes.setProfilePicture(record.get("profilePicture"));
                 userAttributes.setUserHeadline(record.get("userHeadline"));
                 userAttributes.setAboutSection(record.get("aboutSection"));
@@ -107,10 +119,17 @@ public class SeedDataLoader {
                 userAttributes.setCreated_time(new Date());
                 userAttributes.setCreated_date(new Date());
                 userAttributes.updateLastLogin();
-
+                System.out.println("=============================================================================================================================Before Save" + iterator);
                 user.setUserAttributes(userAttributes);
                 userAttributes.setUser(user);
+
+
+
+                //   userAttributeRepository.save(userAttributes);
                 userRepository.save(user);
+                System.out.println("==============================================================================================================================After Save" + user);
+
+            }
             }
             } catch(IOException e){
                 System.out.println("Failed to load Seed Data");

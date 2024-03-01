@@ -9,7 +9,27 @@
     <body>
 
     <section th:fragment="user-badge-fragment">
-
+        <section>
+            <h2>
+                [[${user.username}]]
+            </h2>
+            <div class="avatar-cont">
+                <img class="avatar-img" th:src="${attributes.profilePicture}" alt="Avatars"/>
+            </div>
+            <div>
+                <span>Last loggin : </span>
+                <span> [[${attributes.lastLogin}]]</span>
+            </div>
+            <div>
+                <h5>Total Karma : [[${attributes.karma}]]</h5>
+            </div>
+            <div>
+                <h3>[[${attributes.userHeadline}]]</h3>
+            </div>
+            <div>
+                <h4>[[${attributes.aboutSection}]]</h4>
+            </div>
+        </section>
 
     </section>
 

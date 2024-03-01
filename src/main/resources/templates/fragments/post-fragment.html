@@ -32,20 +32,21 @@
             </div>
 
             <div class="meta">
-               <span>Posted by</span>
 
-                <div th:block th:with="user=${userRepository.getById(post.userId)}">class="avatar-cont">
-                    <img class="avatar-img" th:src="${user.userAttributes.profilePicture}">
+                <div class="post-details" th:block th:with="userId=${post.getUserId()}">
+                    <span>Posted by</span>
+                    <div class="avatar-thumbnail" th:with="user=${userRepository.findUserById(userId)}">
+                        <img class="avatar-img" th:src="${user.userAttributes.profilePicture}">
+                    </div>
+                    <a th:href="@{/user/{id}(id=${post.userId})}" th:text="${post.userName}"></a>
+                    <span>on</span>
+                    <span th:text="${#dates.format(post.postedAt, 'MM-dd-YY')}"></span>
+                    |
+                    <a th:href="@{/post/{id}(id=${post.id})}" th:if="${post.comments.size() == 1}">[[${post.comments.size()}]]
+                        comment</a>
+                    <a th:href="@{/post/{id}(id=${post.id})}" th:unless="${post.comments.size() == 1}">[[${post.comments.size()}]]
+                        comments</a>
                 </div>
-
-                <a th:href="@{/user/{id}(id=${post.userId})}" th:text="${post.userName}"></a>
-                <span>on</span>
-                <span th:text="${#dates.format(post.postedAt, 'MM-dd-YY')}"></span>
-                |
-                <a th:href="@{/post/{id}(id=${post.id})}" th:if="${post.comments.size() == 1}">[[${post.comments.size()}]]
-                    comment</a>
-                <a th:href="@{/post/{id}(id=${post.id})}" th:unless="${post.comments.size() == 1}">[[${post.comments.size()}]]
-                    comments</a>
             </div>
         </div>
     </div>

@@ -62,10 +62,10 @@ public class HomePageController {
         List<Post> postList = postRepository.findAllPostsByUserId(userId);
         for (Post p : postList) {
             p.setVoteCount(voteRepository.countVotesByPostId(p.getUserId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.findUserById(p.getUserId());
             p.setUserName(user.getUsername());
         }
-
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("attributes", userAttributes);
         model.addAttribute("user", sessionUser);
         model.addAttribute("postList", postList);
@@ -98,21 +98,21 @@ public class HomePageController {
         Post post = postRepository.getById(id);
         post.setVoteCount(voteRepository.countVotesByPostId(post.getId()));
 
-        User postUser = userRepository.getById(post.getUserId());
+        User postUser = userRepository.findUserById(post.getUserId());
         post.setUserName(postUser.getUsername());
 
         List<Comment> commentList = commentRepository.findAllCommentsByPostId(post.getId());
 
         List<String> userNames = new ArrayList<>();
         for (Comment comment : commentList) {
-            User user = userRepository.getById(comment.getUserId());
+            User user = userRepository.findUserById(comment.getUserId());
             if (user != null) {
                 userNames.add(user.getUsername());
             } else {
                 userNames.add("Anon");
             }
         }
-
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("commentUserNames", userNames);
         model.addAttribute("post", post);
         model.addAttribute("commentList", commentList);
@@ -143,7 +143,7 @@ public class HomePageController {
             User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
 
             Post returnPost = postRepository.getById(id);
-            User tempUser = userRepository.getById(returnPost.getUserId());
+            User tempUser = userRepository.findUserById(returnPost.getUserId());
             returnPost.setUserName(tempUser.getUsername());
             returnPost.setVoteCount(voteRepository.countVotesByPostId(returnPost.getId()));
 
@@ -195,14 +195,17 @@ public class HomePageController {
             model.addAttribute("loggedIn", sessionUser.isLoggedIn());
         }
 
-        User user = userRepository.getById(id);
+        User user = userRepository.findUserById(id);
         List<Post> postList = postRepository.findAllPostsByUserId(id);
+        UserAttributes userAttributes = userAttributeRepository.findByUserId(user.getId());
 //        for (Post p : postList) {
 //            p.setVoteCount(voteRepository.countVotesByPostId(p.getUserId()));
 //            User user = userRepository.getById(p.getUserId());
 //            p.setUserName(user.getUsername());
 //        }
 
+        model.addAttribute("attributes", userAttributes);
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("user", user);
         model.addAttribute("postList", postList);
 
@@ -236,11 +239,11 @@ public class HomePageController {
         List<Post> postList = postRepository.findAll();
         for (Post p : postList){
             p.setVoteCount(voteRepository.countVotesByPostId(p.getId()));
-            User user = userRepository.getById(p.getUserId());
+            User user = userRepository.findUserById(p.getUserId());
             p.setUserName(user.getUsername());
         }
 
-
+        model.addAttribute("userRepository", userRepository);
         model.addAttribute("postList", postList);
         //Refers to Up-votes
         model.addAttribute("point", "point");

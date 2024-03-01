@@ -1,22 +1,22 @@
 id,title,postUrl,postText,voteCount,userId
-1,Black Panther,https://www.marvel.com/movies/black-panther,The rise of Wakanda's hero.,120,15
-2,Guardians of the Galaxy,https://www.marvel.com/movies/guardians-of-the-galaxy,The misfit heroes' first mission.,180,5
-3,Spider-Man: Into the Spider-Verse,https://www.marvel.com/movies/spider-man-into-the-spider-verse,The ultimate Spider-Man adventure.,140,2
-4,Avengers: Infinity War,https://www.marvel.com/movies/avengers-infinity-war,The battle for the universe.,210,13
-5,Doctor Strange,https://www.marvel.com/movies/doctor-strange,The sorcerer supreme's journey.,130,34
-6,Iron Man,https://www.marvel.com/movies/iron-man,Tony Stark's transformation into Iron Man.,160,7
-7,Ant-Man,https://www.marvel.com/movies/ant-man,Scott Lang becomes the size-changing hero.,140,10
-8,Thor: Ragnarok,https://www.marvel.com/movies/thor-ragnarok,Thor's battle against Hela and the end of Asgard.,170,13
-9,Captain America: The Winter Soldier,https://www.marvel.com/movies/captain-america-the-winter-soldier,Steve Rogers confronts the shadow of his past.,150,15
-10,Captain Marvel,https://www.marvel.com/movies/captain-marvel,The origin of Carol Danvers - the mightiest hero.,200,18
-11,Avengers: Endgame,https://www.marvel.com/movies/avengers-endgame,The epic conclusion to the Infinity Saga.,190,20
-12,The Avengers,https://www.marvel.com/movies/the-avengers,The Earth's mightiest heroes unite.,180,23
+1,Black Panther,https://www.marvel.com/movies/black-panther,The rise of Wakanda's hero.,120,30
+2,Guardians of the Galaxy,https://www.marvel.com/movies/guardians-of-the-galaxy,The misfit heroes' first mission.,180,10
+3,Spider-Man: Into the Spider-Verse,https://www.marvel.com/movies/spider-man-into-the-spider-verse,The ultimate Spider-Man adventure.,140,4
+4,Avengers: Infinity War,https://www.marvel.com/movies/avengers-infinity-war,The battle for the universe.,210,26
+5,Doctor Strange,https://www.marvel.com/movies/doctor-strange,The sorcerer supreme's journey.,130,12
+6,Iron Man,https://www.marvel.com/movies/iron-man,Tony Stark's transformation into Iron Man.,160,2
+7,Ant-Man,https://www.marvel.com/movies/ant-man,Scott Lang becomes the size-changing hero.,140,18
+8,Thor: Ragnarok,https://www.marvel.com/movies/thor-ragnarok,Thor's battle against Hela and the end of Asgard.,170,14
+9,Captain America: The Winter Soldier,https://www.marvel.com/movies/captain-america-the-winter-soldier,Steve Rogers confronts the shadow of his past.,150,38
+10,Captain Marvel,https://www.marvel.com/movies/captain-marvel,The origin of Carol Danvers - the mightiest hero.,200,14
+11,Avengers: Endgame,https://www.marvel.com/movies/avengers-endgame,The epic conclusion to the Infinity Saga.,190,24
+12,The Avengers,https://www.marvel.com/movies/the-avengers,The Earth's mightiest heroes unite.,180,26
 13,X-Men: Days of Future Past,https://www.marvel.com/movies/x-men-days-of-future-past,The X-Men fight for survival across time.,220,26
 14,Deadpool,https://www.marvel.com/movies/deadpool,Wade Wilson becomes the Merc with a Mouth.,210,28
-15,Guardians of the Galaxy Vol. 2,https://www.marvel.com/movies/guardians-of-the-galaxy-vol-2,The Guardians face new challenges as a family.,200,31
-16,Logan,https://www.marvel.com/movies/logan,Wolverine's last stand.,230,34
-17,Thor: The Dark World,https://soaper.tv/movie_o9dG7KZG05,Thor battles the dark elves.,140,36
-18,Doctor Strange: Multiverse of Madness,https://soaper.tv/movie_OYRkXKoGbQ,Doctor Strange faces the multiverse.,220,39
-19,X-Men: Apocalypse,https://soaper.tv/movie_NQ8gmv0G5P,The X-Men battle Apocalypse.,110,2
-20,Iron Man 3,https://soaper.tv/movie_K9EkNrzk4n,Tony Stark confronts his past.,230,5
-21,Constantine: City of Demons,https://soaper.tv/movie_nzwgl81gE4, Detective John Constantine set out to cure Chas’s daughter Trish from a mysterious supernatural coma.,230,7
+15,Guardians of the Galaxy Vol. 2,https://www.marvel.com/movies/guardians-of-the-galaxy-vol-2,The Guardians face new challenges as a family.,200,32
+16,Logan,https://www.marvel.com/movies/logan,Wolverine's last stand.,230,32
+17,Thor: The Dark World,https://soaper.tv/movie_o9dG7KZG05,Thor battles the dark elves.,140,16
+18,Doctor Strange: Multiverse of Madness,https://soaper.tv/movie_OYRkXKoGbQ,Doctor Strange faces the multiverse.,220,6
+19,X-Men: Apocalypse,https://soaper.tv/movie_NQ8gmv0G5P,The X-Men battle Apocalypse.,110,22
+20,Iron Man 3,https://soaper.tv/movie_K9EkNrzk4n,Tony Stark confronts his past.,230,28
+21,Constantine: City of Demons,https://soaper.tv/movie_nzwgl81gE4, Detective John Constantine set out to cure Chas’s daughter Trish from a mysterious supernatural coma.,230,18
