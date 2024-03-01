@@ -74,6 +74,19 @@ public class HomePageController {
         return model;
     }
 
+    //Dashboard
+    @GetMapping("/dashboard")
+    public String dashboardPageSetup(Model model, HttpServletRequest request) throws Exception{
+
+        if (request.getSession(false) != null){
+            setupDashboardPage(model, request);
+            return "dashboard";
+        } else {
+            model.addAttribute("user", new User());
+            return "login";
+        }
+    }
+
     public Model setupSinglePostPage(int id, Model model, HttpServletRequest request) {
         if (request.getSession(false) != null){
             User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
@@ -107,6 +120,23 @@ public class HomePageController {
         return model;
     }
 
+    //Single Post Set up
+    @GetMapping("/post/{id}")
+    public String singlePostPageSetup(@PathVariable int id, Model model, HttpServletRequest request) {
+        User sessionUser = new User();
+
+        if (request.getSession(false) != null){
+            sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+            model.addAttribute("loggedIn", sessionUser.isLoggedIn());
+        } else {
+            model.addAttribute("loggedIn", false);
+        }
+
+
+        setupSinglePostPage(id, model, request);
+        return "single-post";
+    }
+
     public Model setupEditPostPage(int id, Model model, HttpServletRequest request) {
         if (request.getSession(false) != null) {
             User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
@@ -125,6 +155,36 @@ public class HomePageController {
         }
 
         return model;
+    }
+    @GetMapping("/dashboard/edit/{id}")
+    public String editPostPageSetup(@PathVariable int id, Model model, HttpServletRequest request) {
+        if (request.getSession(false) != null){
+            setupEditPostPage(id, model, request);
+            return "edit-post";
+        } else {
+            model.addAttribute("user", new User());
+            return "login";
+        }
+    }
+
+    public void setupEditUserProfilePage(int id, Model model, HttpServletRequest request) throws Exception {
+        if (request.getSession(false) != null) {
+            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+
+            if (sessionUser != null) {
+                UserAttributes userAttributes = userAttributeRepository.findByUserId(sessionUser.getId());
+
+                model.addAttribute("user", sessionUser);
+                model.addAttribute("loggedIn", sessionUser.isLoggedIn());
+                model.addAttribute("attributes", userAttributes);
+            }
+        }
+    }
+
+    @GetMapping("/user/edit/{id}")
+    public String userProfilePageSetup(@PathVariable int id, Model model, HttpServletRequest request) throws Exception{
+        setupEditUserProfilePage(id, model, request);
+        return"edit-user";
     }
 
     public Model setupSingleUserPage(int id, Model model, HttpServletRequest request) throws Exception {
@@ -147,6 +207,16 @@ public class HomePageController {
 
         return model;
     }
+
+
+    @GetMapping("/user/{id}")
+    public String singleUserPageSetup(@PathVariable int id, Model model, HttpServletRequest request) throws Exception {
+        setupSingleUserPage(id, model, request);
+
+        return"single-user";
+    }
+
+
 
 
 
@@ -181,20 +251,7 @@ public class HomePageController {
 
 
 
-    //Dashboard
 
-    //Validate User Session
-    @GetMapping("/dashboard")
-    public String dashboardPageSetup(Model model, HttpServletRequest request) throws Exception{
-
-        if (request.getSession(false) != null){
-            setupDashboardPage(model, request);
-            return "dashboard";
-        } else {
-            model.addAttribute("user", new User());
-            return "login";
-        }
-    }
 
     //Title and Link Error
     @GetMapping("/dashboardEmptyTitleAndLink")
@@ -211,22 +268,7 @@ public class HomePageController {
         return "single-post";
     }
 
-    //Single Post Set up
-    @GetMapping("/post/{id}")
-    public String singlePostPageSetup(@PathVariable int id, Model model, HttpServletRequest request) {
-        User sessionUser = new User();
 
-        if (request.getSession(false) != null){
-            sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
-            model.addAttribute("loggedIn", sessionUser.isLoggedIn());
-        } else {
-            model.addAttribute("loggedIn", false);
-        }
-
-
-        setupSinglePostPage(id, model, request);
-        return "single-post";
-    }
 
     @GetMapping("/editPostEmptyComment/{id}")
     public String editPostEmptyCommentHandler(@PathVariable int id, Model model, HttpServletRequest request) {
@@ -239,28 +281,5 @@ public class HomePageController {
             return "login";
         }
     }
-
-    @GetMapping("/dashboard/edit/{id}")
-    public String editPostPageSetup(@PathVariable int id, Model model, HttpServletRequest request) {
-        if (request.getSession(false) != null){
-            setupEditPostPage(id, model, request);
-            return "edit-post";
-        } else {
-            model.addAttribute("user", new User());
-            return "login";
-        }
-    }
-
-    @GetMapping("/user/{id}")
-    public String singleUserPageSetup(@PathVariable int id, Model model, HttpServletRequest request) throws Exception {
-        setupSingleUserPage(id, model, request);
-
-        return"single-user";
-    }
-
-
-
-
-
 
 }

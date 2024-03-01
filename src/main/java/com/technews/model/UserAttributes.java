@@ -17,10 +17,10 @@ public class UserAttributes implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToOne(mappedBy = "userAttributes", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "userAttributes", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
     private User user;
-
+    @Column(columnDefinition = "VARCHAR(1000)")
     private String profilePicture;
     private String userHeadline;
     private String aboutSection;
@@ -40,7 +40,7 @@ public class UserAttributes implements Serializable {
 
     }
 
-    public UserAttributes(User user, String profilePicture, String userHeadline, String aboutSection) {
+    public UserAttributes( User user, String profilePicture, String userHeadline, String aboutSection) {
         this.user = user;
         this.profilePicture = profilePicture != null ? profilePicture : "";
         this.userHeadline = userHeadline != null ? userHeadline : "";

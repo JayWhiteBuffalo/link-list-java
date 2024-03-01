@@ -107,6 +107,7 @@ public class TechNewController {
         }
 
 
+
     @PostMapping("/posts")
     public String addPostDashboardPage(@ModelAttribute Post post, Model model, HttpServletRequest request) {
 
@@ -193,4 +194,22 @@ public class TechNewController {
         }
     }
 
+
+    @PostMapping("/user/edit/{id}")
+    public String processEditProfileForm(@ModelAttribute  UserAttributes userAttributes, Model model, HttpServletRequest request, HttpServletResponse response){
+        if(request.getSession(false) == null) {
+            return "redirect:/login";
+        } else {
+
+            User sessionUser = (User) request.getSession().getAttribute("SESSION_USER");
+            Integer id = sessionUser.getId();
+            userAttributes.setUser(sessionUser);
+            sessionUser.setUserAttributes(userAttributes);
+
+            userAttributeRepository.save(userAttributes);
+
+            return "redirect:/user/edit/" + id;
+
+        }
+    }
 }

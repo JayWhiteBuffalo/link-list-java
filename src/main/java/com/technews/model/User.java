@@ -20,7 +20,7 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_attributes_id", referencedColumnName = "id")
     @JsonIgnore // prevents recursive serialization
     private UserAttributes userAttributes;

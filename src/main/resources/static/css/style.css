@@ -323,3 +323,20 @@ footer {
   padding: 1%;
   font-size: 110%;
 }
+
+.avatar-cont{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar-img{
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.avatar-thumbnail{
+
+}

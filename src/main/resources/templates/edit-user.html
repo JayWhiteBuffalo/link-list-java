@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Edit Profile</title>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+    <div class="dashboard-cont">
+
+        <section>
+            <h2>
+               Welome back [[${user.username}]] !
+            </h2>
+            <div class="avatar-cont">
+                <img class="avatar-img" th:src="${attributes.profilePicture}" alt="Avatars"/>
+            </div>
+            <div>
+                <span>Last loggin : </span>
+                <span> [[${attributes.lastLogin}]]</span>
+            </div>
+            <div>
+                <h5>Total Karma : [[${attributes.karma}]]</h5>
+            </div>
+            <div>
+                <h3>[[${attributes.userHeadline}]]</h3>
+            </div>
+            <div>
+                <h4>[[${attributes.aboutSection}]]</h4>
+            </div>
+        </section>
+
+        <section>
+            <form th:action="@{/user/edit/{id}(id=${user.id})}" th:object="${attributes}" method="post" class="edit-post-form">
+
+                <div>
+
+                    <label>
+                        Profile Picture
+                        <input type="text" th:field="*{profilePicture}"/>
+                    </label>
+                    <label>
+                        Headline
+                        <input type="text" th:field="*{userHeadline}"/>
+                    </label>
+                    <label>
+                        About
+                        <textarea class="" type="text" th:field="*{aboutSection}"></textarea>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-no-style">Update</button>
+
+            </form>
+        </section>
+
+    </div>
+</div>
+
+
+</body>
+</html>
