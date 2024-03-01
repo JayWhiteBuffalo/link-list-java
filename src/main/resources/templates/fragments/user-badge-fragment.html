@@ -9,12 +9,15 @@
     <body>
 
     <section th:fragment="user-badge-fragment">
+
         <section>
             <h2>
                 [[${user.username}]]
             </h2>
-            <div class="avatar-cont">
-                <img class="avatar-img" th:src="${attributes.profilePicture}" alt="Avatars"/>
+            <div th:unless="${attributes.profilePicture == null}">
+                <div class="avatar-cont">
+                    <img class="avatar-img" th:src="${attributes.profilePicture}" alt="Avatars"/>
+                </div>
             </div>
             <div>
                 <span>Last loggin : </span>

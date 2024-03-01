@@ -8,52 +8,57 @@
 
 <body>
 
-<div layout:fragment="content">
+<div class="flex-col" layout:fragment="content">
+    <div class="page-layout-padding">
 
-    <div th:if="${notice}" class="flash-message">
-        <h3>[[${notice}]]</h3>
-    </div>
-
-    <div class="dashboard-cont">
-
-    <section>
-        <h2>Create New Post</h2>
-
-        <form action="#" th:action="@{/posts}" th:object="${post}" method="post" class="new-post-form">
-            <div>
-                <label for="post-title">Title</label>
-                <input type="text" th:field="*{title}" id="post-title" name="post-title"/>
-            </div>
-            <div>
-                <label for="post-url">Link</label>
-                <input type="text" th:field="*{postUrl}" id="post-url" name="post-url"/>
-            </div>
-            <div>
-                <label for="post-text">Description</label>
-                <textarea class="dashboard-textarea" type="text" th:field="*{postText}" id="post-text" name="post-text"></textarea>
-            </div>
-            <button type="submit" class="btn-no-style">Create</button>
-        </form>
-    </section>
-
-    <section>
-        <div>
-            <span th:text="${attributes.id}"></span>
+        <div th:if="${notice}" class="flash-message">
+            <h3>[[${notice}]]</h3>
         </div>
-        <div th:if="${postList.size() > 0}">
-            <h2>Your Posts</h2>
-            <ol class="dashboard-postList-cont">
-                <li th:each="post : ${postList}">
-                    <div th:insert="fragments/post-fragment :: post-fragment"></div>
-                        <div class="dashboard-post-btn-cont">
-                            <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="btn-no-style">Edit post</a>
-                            <button type="button" name="delete-post-btn" class="delete-post-btn btn-no-style " th:value="${post.id}">Delete</button>
-                        </div>
-                </li>
-            </ol>
-        </div>
-    </section>
 
+        <div class="dashboard-cont">
+
+            <section>
+                <h1>Hello</h1>
+                <div th:insert="fragments/user-badge-fragment"></div>
+                <div class="dashboard-post-btn-cont">
+                    <a th:href="@{/user/edit/{id}(id=${user.id})}" class="btn-no-style">Edit Profile</a>
+                </div>
+            </section>
+
+            <section>
+                <h2>Create New Post</h2>
+
+                <form action="#" th:action="@{/posts}" th:object="${post}" method="post" class="new-post-form">
+                    <div>
+                        <label for="post-title">Title</label>
+                        <input type="text" th:field="*{title}" id="post-title" name="post-title"/>
+                    </div>
+                    <div>
+                        <label for="post-url">Link</label>
+                        <input type="text" th:field="*{postUrl}" id="post-url" name="post-url"/>
+                    </div>
+                    <div>
+                        <label for="post-text">Description</label>
+                        <textarea class="dashboard-textarea" type="text" th:field="*{postText}" id="post-text" name="post-text"></textarea>
+                    </div>
+                    <button type="submit" class="btn-no-style">Create</button>
+                </form>
+
+                <div th:if="${postList.size() > 0}">
+                    <h2>Your Posts</h2>
+                    <ol class="dashboard-postList-cont">
+                        <li th:each="post : ${postList}">
+                            <div th:insert="fragments/post-fragment :: post-fragment"></div>
+                                <div class="dashboard-post-btn-cont">
+                                    <a th:href="@{/dashboard/edit/{id}(id=${post.id})}" class="btn-no-style">Edit post</a>
+                                    <button type="button" name="delete-post-btn" class="delete-post-btn btn-no-style " th:value="${post.id}">Delete</button>
+                                </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+        </div>
     </div>
 
     <script src="/js/delete-post.js"></script>

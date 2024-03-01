@@ -208,7 +208,7 @@ public class TechNewController {
 
             userAttributeRepository.save(userAttributes);
 
-            return "redirect:/user/edit/" + id;
+            return "redirect:/dashboard";
 
         }
     }

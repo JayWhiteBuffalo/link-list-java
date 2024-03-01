@@ -26,7 +26,7 @@ public class Post implements Serializable{
     private int voteCount;
     private Integer userId;
     @NotNull
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "posted_at" )
     private Date postedAt = new Date();
     @NotNull

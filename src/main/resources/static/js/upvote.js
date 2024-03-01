@@ -53,7 +53,7 @@ async function downvoteClickHandler(event) {
 
   let postId = postIteration.split('-')[1];
 
-  const response = await fetch('/posts/downvote', {
+  await const response = fetch('/posts/downvote', {
     method: 'PUT',
     body: JSON.stringify({
         postId: postId
@@ -64,7 +64,7 @@ async function downvoteClickHandler(event) {
   });
 
   if (response.ok) {
-    document.location.reload();
+    window.location.reload();
   } else {
     alert(response.statusText);
   }

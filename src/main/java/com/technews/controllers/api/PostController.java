@@ -1,4 +1,4 @@
-package com.technews.controllers;
+package com.technews.controllers.api;
 
 import com.technews.model.Post;
 import com.technews.model.User;
@@ -6,12 +6,15 @@ import com.technews.model.Vote;
 import com.technews.repository.PostRepository;
 import com.technews.repository.UserRepository;
 import com.technews.repository.VoteRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
 import java.util.List;
 
 @RestController
@@ -76,7 +79,6 @@ public class PostController {
             returnPost = postRepository.getById(vote.getPostId());
             returnPost.setVoteCount(voteRepository.countVotesByPostId((vote.getPostId())));
 
-            returnValue  = "";
         } else {
             // If there's no active session, set the return value to "login"
             returnValue ="login";

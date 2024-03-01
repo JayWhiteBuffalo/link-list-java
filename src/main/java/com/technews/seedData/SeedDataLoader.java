@@ -65,8 +65,6 @@ public class SeedDataLoader {
                 // Create a User object and save it to the database or perform other operations as needed
                 User user = new User(Integer.parseInt(id), username, email, password);
 
-                System.out.println("====================================================================================================================================="+user);
-
                 // Call loadAttributeData with the user and userId
                 loadAttributeData(user, currentIndex);
             }
@@ -122,8 +120,6 @@ public class SeedDataLoader {
                 System.out.println("=============================================================================================================================Before Save" + iterator);
                 user.setUserAttributes(userAttributes);
                 userAttributes.setUser(user);
-
-
 
                 //   userAttributeRepository.save(userAttributes);
                 userRepository.save(user);
